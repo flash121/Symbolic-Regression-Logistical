@@ -19,7 +19,7 @@ Created on 2013-7-2
 #    License along with EAP. If not, see <http://www.gnu.org/licenses/>.
 
 import operator
-
+from sklearn import metrics
 import math
 import random
 from datatest import getdata
@@ -29,7 +29,7 @@ from deap import base
 from deap import creator
 from deap import tools
 from deap import gp
-
+co=0
 def tryaces(input):
     return 1-input
 
@@ -94,7 +94,7 @@ toolbox.register("expr", gp.genRamped, pset=pset, min_=0, max_=1)
 toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("lambdify", gp.lambdify, pset=pset)
-A,X=getdata();
+A,X=getdata()
 #toolbox.decorate('bloat',de)
 def evalSymbReg(individual):
     # Transform the tree expression in a callable function
@@ -114,10 +114,18 @@ def evalSymbReg(individual):
     #A=[1,1,1,0,1];
     t=0
     a=0
+    global co 
+    co+=1
+   # print co
+    if(co>6000):
+        global A,X
+        A,X=getdata()
+    preds=[]
     for x in X:
-        a=a+(A[t]-func(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]))**2
-        t+=1
-    return a,
+        preds.append(func(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]))
+        #t+=1
+    auc = 1-metrics.auc_score(A, preds)
+    return auc,
 
 toolbox.register("evaluate", evalSymbReg)
 toolbox.register("select", tools.selTournament, tournsize=3)
