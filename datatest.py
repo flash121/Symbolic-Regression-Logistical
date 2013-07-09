@@ -88,7 +88,7 @@ def genVector(trainSet, testSet):
         
         Xtemp = compare(onePath, res, trainSet)
         X.append(Xtemp)
-        print i
+        #print i
         #print Xtemp
     return X
 
