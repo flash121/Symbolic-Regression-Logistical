@@ -36,16 +36,6 @@ def access_right(in1,in2):
 
 def access_left(in1,in2):
     return in2
-    
-# Define new functions
-def safeDiv(left, right):
-    try:
-        return left / right
-    except ZeroDivisionError:
-        return 0
-    
-
-
 
 
 def staticLimitCrossover(ind1, ind2, heightLimit): 
