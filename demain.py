@@ -21,7 +21,8 @@ Created on 2013-7-2
 import operator
 import math
 import random
-
+from datatest import getdata
+import numpy as np
 from deap import algorithms
 from deap import base
 from deap import creator
@@ -110,8 +111,6 @@ def evalSymbReg(individual):
     #L
     #A=[1,1,1,0,1];
     X,A=getdata();
-    a=0
-    t=0
     for x in X:
         a=a+(A[t]-func(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]))**2
         t+=1

@@ -93,7 +93,7 @@ def genVector(trainSet, testSet):
     return X
 
 
-def dataread():            
+def getdata():            
     content = readCSV('train.csv')
     '''
     access, path = resource(0, content)
