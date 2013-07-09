@@ -120,6 +120,7 @@ def evalSymbReg(individual):
     if(co>6000):
         global A,X
         A,X=getdata()
+        co=0
     preds=[]
     for x in X:
         preds.append(func(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]))
