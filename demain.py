@@ -19,6 +19,7 @@ Created on 2013-7-2
 #    License along with EAP. If not, see <http://www.gnu.org/licenses/>.
 
 import operator
+
 import math
 import random
 from datatest import getdata
@@ -93,6 +94,7 @@ toolbox.register("expr", gp.genRamped, pset=pset, min_=0, max_=1)
 toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("lambdify", gp.lambdify, pset=pset)
+A,X=getdata();
 #toolbox.decorate('bloat',de)
 def evalSymbReg(individual):
     # Transform the tree expression in a callable function
@@ -110,7 +112,8 @@ def evalSymbReg(individual):
     #X.append([0.0000,1,1.0000,1.0000,0,0.5000,0,1])
     #L
     #A=[1,1,1,0,1];
-    X,A=getdata();
+    t=0
+    a=0
     for x in X:
         a=a+(A[t]-func(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7]))**2
         t+=1
@@ -135,7 +138,7 @@ def main():
     stats.register("min", min)
     stats.register("max", max)
     
-    algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 400, stats, halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 40, stats, halloffame=hof)
     
     print hof
 
